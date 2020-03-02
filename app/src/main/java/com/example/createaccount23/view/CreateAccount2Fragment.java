@@ -52,8 +52,6 @@ public class CreateAccount2Fragment extends Fragment {
         viewmodel.getUserLiveData().observe(getViewLifecycleOwner(), userObserver);
 
         final NonSwipeableViewPager viewPager = ((CreateAccount) getActivity()).findViewById(R.id.vpCreateAccount);
-
-        binding.txtEmail.append(viewmodel.getNewUser().getFirstName());
         // Back Button
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -171,8 +171,4 @@ public class CreateAccountVM extends ViewModel {
 
         return singletonChanged;
     }
-
-    public User getNewUser() {
-        return newUser;
-    }
 }
