@@ -27,21 +27,29 @@ import java.util.Objects;
 public class CreateAccount2Fragment extends Fragment {
 
     private CreateAccountVM viewmodel;
+    private FragmentCreateaccount2Binding binding;
+
+    private Observer<User> userObserver = new Observer<User>() {
+        @Override
+        public void onChanged(User user) {
+           showUserInfo(user);
+        }
+    };
+
+    private void showUserInfo(User user) {
+        if (user == null) return;
+        if (user.getFirstName() != null)
+            binding.txtEmail.setText(String.format(getString(R.string.txtEmail), user.getFirstName()));
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final FragmentCreateaccount2Binding binding = DataBindingUtil.inflate(inflater,
+        binding = DataBindingUtil.inflate(inflater,
                 R.layout.fragment_createaccount2, container, false);
         View view = binding.getRoot();
         viewmodel  = ((CreateAccount) Objects.requireNonNull(getActivity())).viewmodel;
-        viewmodel.getUserLiveData().observe(getViewLifecycleOwner(), new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if (user.getFirstName() != null)
-                binding.txtEmail.setText(String.format(getString(R.string.txtEmail), user.getFirstName()));
-            }
-        });
+        viewmodel.getUserLiveData().observe(getViewLifecycleOwner(), userObserver);
 
         final NonSwipeableViewPager viewPager = ((CreateAccount) getActivity()).findViewById(R.id.vpCreateAccount);
 

@@ -38,8 +38,6 @@ public class CreateAccountVM extends ViewModel {
             return;
         }
         userRepository = UserRepository.getInstance();
-
-        userLiveData.postValue(newUser);
     }
 
 
@@ -65,7 +63,6 @@ public class CreateAccountVM extends ViewModel {
 
             updated.setValue(true);
             userLiveData.postValue(newUser);
-            Log.d("TAG", ""+ newUser.toString());
             return updated;
         }
 
@@ -88,6 +85,7 @@ public class CreateAccountVM extends ViewModel {
             newUser.setEmail(email);
             response.setValue(0);
             this.email = email;
+            userLiveData.postValue(newUser);
             return response;
         }
     }
