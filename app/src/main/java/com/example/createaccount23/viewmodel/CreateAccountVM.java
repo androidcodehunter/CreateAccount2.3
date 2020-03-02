@@ -22,6 +22,12 @@ public class CreateAccountVM extends ViewModel {
     private String email;
     private String password;
 
+    private MutableLiveData<User> userLiveData = new MutableLiveData<>();
+
+    public MutableLiveData<User> getUserLiveData() {
+        return userLiveData;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -32,6 +38,8 @@ public class CreateAccountVM extends ViewModel {
             return;
         }
         userRepository = UserRepository.getInstance();
+
+        userLiveData.postValue(newUser);
     }
 
 
@@ -56,8 +64,12 @@ public class CreateAccountVM extends ViewModel {
             }
 
             updated.setValue(true);
+            userLiveData.postValue(newUser);
+            Log.d("TAG", ""+ newUser.toString());
             return updated;
         }
+
+
     }
 
     public LiveData<Integer> emailInput(String email, String confirmEmail){
@@ -162,5 +174,7 @@ public class CreateAccountVM extends ViewModel {
         return singletonChanged;
     }
 
-
+    public User getNewUser() {
+        return newUser;
+    }
 }

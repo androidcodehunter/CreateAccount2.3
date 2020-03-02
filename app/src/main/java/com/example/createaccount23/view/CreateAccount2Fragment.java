@@ -1,6 +1,7 @@
 package com.example.createaccount23.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.createaccount23.R;
 import com.example.createaccount23.databinding.FragmentCreateaccount2Binding;
+import com.example.createaccount23.model.User;
 import com.example.createaccount23.utils.NonSwipeableViewPager;
 import com.example.createaccount23.viewmodel.CreateAccountVM;
 
@@ -33,8 +35,17 @@ public class CreateAccount2Fragment extends Fragment {
                 R.layout.fragment_createaccount2, container, false);
         View view = binding.getRoot();
         viewmodel  = ((CreateAccount) Objects.requireNonNull(getActivity())).viewmodel;
+        viewmodel.getUserLiveData().observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user.getFirstName() != null)
+                binding.txtEmail.setText(String.format(getString(R.string.txtEmail), user.getFirstName()));
+            }
+        });
+
         final NonSwipeableViewPager viewPager = ((CreateAccount) getActivity()).findViewById(R.id.vpCreateAccount);
 
+        binding.txtEmail.append(viewmodel.getNewUser().getFirstName());
         // Back Button
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,4 +92,5 @@ public class CreateAccount2Fragment extends Fragment {
         return view;
 
     }
+
 }

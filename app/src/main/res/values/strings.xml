@@ -16,7 +16,7 @@
     <string name="rdbFemale">Female</string>
     <string name="rdbInstructions">(Tap to choose)</string>
 
-    <string name="txtEmail">[firstName], enter your email address</string>
+    <string name="txtEmail">[%s], enter your email address</string>
     <string name="edtEmailHint">Type your email</string>
     <string name="txtConfirmEmail">Confirm email address</string>
     <string name="edtConfirmEmailHint">Re-type your email</string>
